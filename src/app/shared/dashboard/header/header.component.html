@@ -1,4 +1,11 @@
-<header>
-    <h1 class="text-2xl">Bini {{ role }}</h1>
-  </header>
+<header class="bg-white flex items-center justify-between rounded-xl p-2 shadow-md">
+  <div class="flex items-center space-x-4">
+    <i class="text-green-600"></i> <!-- Icon placeholder -->
+    <h1 class="text-xl font-semibold text-gray-700">Welcome! {{ role }}</h1>
+  </div>
   
+  <div class="flex items-center space-x-6">
+    <span class="text-gray-500">{{ currentTime }}</span>
+    <img src="assets/img/bini_aiah.png" alt="User Avatar" class="w-14 h-14 rounded-full border-2 border-green-500">
+  </div>
+</header>

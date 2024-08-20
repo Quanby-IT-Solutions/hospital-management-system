@@ -8,6 +8,7 @@ module.exports = {
         'global-bg': '#F8F9FE',
         'container-bg': '#ffffff',
         'primary-bg': '#00cc99',
+        'primary-bg-opacity': 'rgba(0, 204, 153, 0.25)', 
         'secondary-bg': '#ff9900',
         'accent-bg': '#597931',
         'warning-bg': 'rgb(239 68 68)',
