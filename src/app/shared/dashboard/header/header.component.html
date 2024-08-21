@@ -1,11 +1,16 @@
-<header class="bg-white flex items-center justify-between rounded-xl p-2 shadow-md">
+<header class="flex items-center justify-between px-8 py-4 bg-white shadow-lg rounded-xl border-b border-gray-200">
   <div class="flex items-center space-x-4">
-    <i class="text-green-600"></i> <!-- Icon placeholder -->
-    <h1 class="text-xl font-semibold text-gray-700">Welcome! {{ role }}</h1>
+    <i class="fa fa-calendar text-xl text-gray-500"></i>
+    <span class="text-gray-700">{{ currentTime }}</span>
   </div>
   
   <div class="flex items-center space-x-6">
-    <span class="text-gray-500">{{ currentTime }}</span>
-    <img src="assets/img/bini_aiah.png" alt="User Avatar" class="w-14 h-14 rounded-full border-2 border-green-500">
+    <button class="relative">
+      <i class="fa fa-bell text-gray-500 text-xl"></i>
+      <span class="absolute bottom-3 left-2 inline-flex items-center justify-center w-4 h-4 text-xs font-bold leading-none text-white bg-red-600 rounded-full">9</span>
+    </button>
+    <div class="relative">
+      <img [src]="getProfileImage()" alt="User Avatar" class="w-12 h-12 rounded-full ">
+    </div>
   </div>
 </header>

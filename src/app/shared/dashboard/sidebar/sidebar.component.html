@@ -1,32 +1,31 @@
-<nav class="bg-white h-screen p-4 shadow-md flex flex-col justify-between">
+<nav class="h-full flex flex-col justify-between">
   <!-- Logo and Title -->
   <div>
-    <div class="flex items-center mb-6">
-      <img src="assets/img/logo.png" alt="Geriatric Center Logo" class="w-14 h-14">
-      <div class="ml-4">
+    <div class="flex items-center px-3 pt-7 ">
+      <img src="assets/img/logo.png" alt="Geriatric Center Logo" class="w-16 h-16">
+      <div class="ml-3">
         <h1 class="text-lg font-bold text-gray-800">Geriatric Center</h1>
         <p class="text-sm text-gray-500">My Health Portal</p>
       </div>
     </div>
 
     <!-- Navigation Links -->
-    <ul class="space-y-2">
+    <ul class="space-y-2 px-3 mt-8">
       <li *ngFor="let item of getSidebarItems()" class="relative group">
-        <a [routerLink]="item.link" routerLinkActive="active"
-           class="flex items-center p-3 text-gray-700 rounded-lg transition-colors"
-           [ngClass]="{'bg-primary-bg-opacity text-primary-bg': isActive(item.link) || isDashboardDefault(item.link)}">
-          <i class="{{ item.icon }} mr-3"></i> <!-- Icon -->
-          {{ item.name }}
-        </a>
-        <!-- Active Indicator -->
         <span *ngIf="isActive(item.link) || isDashboardDefault(item.link)" 
-              class="absolute right-0 top-0 bottom-0 w-1 bg-primary-bg rounded"></span>
+              class="absolute -right-3 top-0 bottom-0 w-1 bg-primary-bg rounded"></span>
+        <a [routerLink]="item.link" routerLinkActive="active"
+           class="flex items-center p-3 text-gray-700 rounded-lg hover:bg-primary-bg-opacity transition-colors"
+           [ngClass]="{'bg-primary-bg-opacity text-primary-bg': isActive(item.link) || isDashboardDefault(item.link)}">
+          <i class="{{ item.icon }} mr-3 text-primary-bg"></i> <!-- Icon -->
+          <span class="text-gray-800">{{ item.name }}</span>
+        </a>
       </li>
     </ul>
   </div>
 
   <!-- Sign Out Button -->
-  <div (click)="logout()" class="flex items-center text-red-600 hover:text-red-800 cursor-pointer mt-8">
+  <div (click)="logout()" class="flex items-center text-red-600 hover:text-red-800 cursor-pointer p-6">
     <i class="fas fa-sign-out-alt mr-2"></i> <!-- Sign Out Icon -->
     <h1 class="font-medium">Sign Out</h1>
   </div>

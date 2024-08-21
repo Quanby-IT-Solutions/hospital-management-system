@@ -1,32 +1,37 @@
 /* Sidebar item transition */
 a {
-    transition: background-color 0.4s ease, color 0.4s ease, transform 0.4s ease;
-  }
-  
-  /* Active state with subtle background and text color change */
-  a.active {
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+    position: relative; /* Ensure the line stays outside the container */
+}
+
+/* Active state with subtle background and text color change */
+a.active {
     background-color: #F8F9FE; /* global-bg */
     color: #16a34a; /* text-green-600 */
     transform: scale(1.02);
-    transition: background-color 0.4s ease, color 0.4s ease, transform 0.4s ease;
-  }
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
   
-  /* Hover state with slight elevation and text color change */
-  a:hover {
-    transform: translateX(8px) scale(1.05); /* Moves slightly to the right and enlarges */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+/* Hover state with minimal elevation and text color change */
+a:hover {
+    transform: translateX(4px) scale(1.03); /* Slightly moves to the right and enlarges */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05); /* Adds a minimal shadow */
     color: #16a34a;
-  }
+}
   
-  /* Active indicator animation */
-  a.active + span {
+/* Active indicator animation */
+a.active + span {
+    position: absolute;
+    right: -4px; /* Move the line outside the container */
+    top: 0;
+    bottom: 0;
     width: 4px;
-    transition: width 0.4s ease, background-color 0.4s ease;
-  }
+    background-color: #16a34a; /* text-green-600 */
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
   
-  /* Hover effect on the icon */
-  a:hover i {
-    transform: translateX(5px); /* Moves the icon slightly to the right on hover */
-    transition: transform 0.4s ease;
-  }
-  
+/* Hover effect on the icon */
+a:hover i {
+    transform: translateX(2px); /* Slightly moves the icon to the right on hover */
+    transition: transform 0.3s ease;
+}

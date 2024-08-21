@@ -24,17 +24,35 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
-  private updateTime() {
-    const now = new Date();
-    this.currentTime = now.toLocaleString('en-US', { 
-      weekday: 'long', 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric', 
-      hour: 'numeric', 
-      minute: 'numeric', 
-      second: 'numeric', 
-      hour12: true 
-    });
+  getProfileImage(): string {
+    switch (this.role) {
+      case 'Patient':
+        return 'assets/img/patient.webp';
+      case 'Caregiver':
+        return 'assets/img/doctor.jpg';
+      case 'GCU Portal':
+        return 'assets/img/bini_aiah.png';
+      case 'Impact Dashboard':
+        return 'assets/img/bini_aiah.png';
+      case 'Admin Portal':
+        return 'assets/img/bini_aiah.png';
+      default:
+        return 'assets/img/bini_aiah.png';
+    }
   }
+
+ private updateTime() {
+  const now = new Date();
+  this.currentTime = now.toLocaleString('en-US', { 
+    weekday: 'long',
+    year: '2-digit', 
+    month: 'numeric', 
+    day: 'numeric', 
+    hour: 'numeric', 
+    minute: 'numeric', 
+    second: 'numeric', 
+    hour12: true 
+  }).replace(',', '');
+}
+
 }
