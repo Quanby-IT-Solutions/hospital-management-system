@@ -1,38 +1,80 @@
 <div class="p-4 bg-white shadow rounded-lg">
-    <h2 class="text-lg font-semibold text-gray-900 mb-4">August 2024</h2>
-    <div class="grid grid-cols-7 gap-2">
+    <div class="flex justify-between items-center mb-4">
+      <button (click)="previousMonth()" class="p-2 text-primary-bg">
+        &lt;
+      </button>
+      <h2 class="text-title font-semibold text-gray-900">
+        {{ selectedDate | date: 'MMMM yyyy' }}
+      </h2>
+      <button (click)="nextMonth()" class="p-2 text-primary-bg">
+        &gt;
+      </button>
+    </div>
+  
+    <div class="ml-6 grid grid-cols-7 gap-2 transition-transform duration-300" [ngClass]="transitionClass">
       <div *ngFor="let day of daysInMonth" 
            (click)="onDateSelect(day)"
-           class="p-2 text-center cursor-pointer rounded-full transition-all duration-200"
+           class="p-2 text-center text-body cursor-pointer w-10 h-10 rounded-full transition-all duration-200"
            [ngClass]="{
-             'bg-primary-bg text-white': selectedDate.getDate() === day || getEventColor(day) === 'primary',
-             'bg-secondary-bg text-white': selectedDate.getDate() === day || getEventColor(day) === 'secondary',
-             'bg-accent-bg text-white': selectedDate.getDate() === day || getEventColor(day) === 'accent',
-             'bg-warning-bg text-white': selectedDate.getDate() === day || getEventColor(day) === 'warning',
-             'text-gray-900': selectedDate.getDate() !== day && !isEventDay(day),
-             'bg-gray-200': selectedDate.getDate() !== day && isEventDay(day) === false
+             'bg-primary-bg text-white': selectedDate.getDate() === day && getEventColor(day) === 'primary',
+             'bg-secondary-bg text-white': selectedDate.getDate() === day && getEventColor(day) === 'secondary',
+             'bg-accent-bg text-white': selectedDate.getDate() === day && getEventColor(day) === 'accent',
+             'bg-warning-bg text-white': selectedDate.getDate() === day && getEventColor(day) === 'warning',
+             'bg-primary-bg': getEventColor(day) === 'primary',
+                'bg-secondary-bg': getEventColor(day) === 'secondary',
+                'bg-accent-bg': getEventColor(day) === 'accent',
+                 'bg-warning-bg': getEventColor(day) === 'warning',
+                'text-white': isEventDay(day),
+                'bg-white text-gray-900': !isEventDay(day),
+             ' text-gray-900': !isEventDay(day),
            }">
         {{ day }}
       </div>
     </div>
     
-    <ul class="mt-4 space-y-2">
-      <ng-container *ngFor="let day of daysInMonth">
-        <li *ngIf="getEvents(day).length" class="flex items-center">
-          <span class="text-gray-900 font-semibold">{{ day }}</span>
-          <ul class="ml-4 space-y-1">
-            <li *ngFor="let event of getEvents(day)" class="flex items-center">
-              <span [ngClass]="{
-                'bg-primary-bg': event.color === 'primary',
-                'bg-secondary-bg': event.color === 'secondary',
-                'bg-accent-bg': event.color === 'accent',
-                'bg-warning-bg': event.color === 'warning'
-              }" class="w-2.5 h-2.5 rounded-full mr-2"></span>
-              <span class="text-gray-900">{{ event.name }}</span>
-            </li>
-          </ul>
-        </li>
-      </ng-container>
-    </ul>
+    <!-- <div class="flex justify-center items-center mt-10">
+           
+        <h2 class="text-title font-semibold text-gray-900">
+          {{ selectedDate | date: 'MMMM' }}
+        </h2>
+        
+      </div> -->
+    <ul class="mt-10 mx-4">
+       
+        <ng-container *ngFor="let day of daysInMonth">
+            
+          <li *ngIf="isEventDay(day)" class="relative flex items-center">
+            <div class="w-16 text-right pr-4">
+              <p class="text-body font-bold text-gray-800">{{ day }}</p>
+              <p class="text-body text-gray-500">{{ getDayOfWeek(day) }}</p>
+            </div>
+            <div class="relative flex-1">
+              <div class="absolute left-0 w-0.5 bg-gray-300 h-full"></div>
+              <ul class="ml-4">
+                <ng-container *ngFor="let event of getEvents(day, getMonthKey())">
+                  <li class="relative flex items-center space-x-4 mb-4">
+                    <div class="absolute -left-5 top-1/2 transform -translate-y-1/2 w-3 h-3 bg-gray-800 rounded-full"></div>
+                    <span
+                      [ngClass]="{
+                        'bg-primary-bg text-white': event.color === 'primary',
+                        'bg-secondary-bg text-white': event.color === 'secondary',
+                        'bg-accent-bg text-white': event.color === 'accent',
+                        'bg-warning-bg text-white': event.color === 'warning',
+                        'text-white': isEventDay(day),
+
+                      }"
+                      class="px-6 py-3 rounded-xl w-full text-body font-semibold"
+                    >
+                      {{ event.name }}
+                    </span>
+                  </li>
+                </ng-container>
+              </ul>
+            </div>
+          </li>
+        </ng-container>
+      </ul>
+      
+      
   </div>
   
