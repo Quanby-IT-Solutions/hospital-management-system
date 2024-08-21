@@ -1,9 +1,13 @@
-<div class="p-6">
+<div class="p-6 bg-gray-50 min-h-screen">
     <div class="grid grid-cols-12 gap-6">
       
       <!-- Welcome Header -->
-      <div class="col-span-12">
+      <div class="col-span-8">
         <app-welcome-header></app-welcome-header>
+      </div>
+
+      <div class="col-span-4 ">
+        <app-reminders></app-reminders>
       </div>
   
       <!-- Body Content on the left -->
@@ -12,8 +16,7 @@
       </div>
   
       <!-- Reminders and Calendar on the right -->
-      <div class="col-span-4 space-y-6">
-        <app-reminders></app-reminders>
+      <div class="col-span-4 ">
         <app-calendar></app-calendar>
       </div>
   

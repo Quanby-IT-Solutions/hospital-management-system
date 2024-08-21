@@ -1,14 +1,29 @@
-<div class="bg-white shadow-md p-4 rounded-lg">
-    <h2 class="text-lg font-semibold text-gray-800 mb-4">Sample Reminders</h2>
-    <ul class="space-y-2">
-      <li *ngFor="let reminder of sampleReminders" class="flex justify-between p-2 bg-gray-100 rounded-lg">
-        <span>{{ reminder.name }} - {{ reminder.status }}</span>
-        <span [ngClass]="{
-          'text-green-500': reminder.status === 'Done',
-          'text-red-500': reminder.status === 'Pending'
-        }">
-          {{ reminder.status }}
-        </span>
+<div class="bg-white shadow-md p-6 rounded-lg">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl font-bold text-gray-800">Take your Medication</h2>
+      <a href="#" class="text-gray-500 text-sm">See All</a>
+    </div>
+    <ul class="space-y-4">
+      <li *ngFor="let reminder of sampleReminders" class="flex items-center justify-between">
+        <div class="flex items-center">
+          <div class="w-10 h-10 bg-teal-500 rounded-full flex items-center justify-center mr-4">
+            <img src="assets/img/pils.png" alt="Medication Icon" class="w-6 h-6">
+          </div>
+          <div>
+            <p class="text-md font-semibold text-gray-800">{{ reminder.name }}</p>
+            <p class="text-sm text-gray-500">{{ reminder.dosage }} | {{ reminder.time }}</p>
+          </div>
+        </div>
+        <div class="flex space-x-4">
+          <button class="text-red-500 flex items-center space-x-1">
+            <span>&times;</span> 
+            <span>skip</span>
+          </button>
+          <button class="text-green-500 flex items-center space-x-1">
+            <span>&#10003;</span>
+            <span>taken</span>
+          </button>
+        </div>
       </li>
     </ul>
   </div>

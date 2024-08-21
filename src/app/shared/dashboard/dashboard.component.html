@@ -1,14 +1,14 @@
 <div class="flex h-screen bg-gray-50">
   <!-- Sidebar -->
-  <app-sidebar [role]="role" class="w-64 bg-white shadow-md"></app-sidebar>
+  <app-sidebar [role]="role" class="w-80 bg-white border-r shadow-md flex-shrink-0"></app-sidebar>
   
   <!-- Main Content Area -->
-  <div class="flex flex-col flex-grow">
+  <div class="flex flex-col flex-grow overflow-hidden">
     <!-- Header -->
-    <app-header [role]="role" class="bg-global-bg px-10 py-6"></app-header>
+    <app-header [role]="role" class=" bg-global-bg px-10 py-6 shadow-md"></app-header>
     
     <!-- Dashboard Content -->
-    <div class="flex-grow px-10 bg-global-bg">
+    <div class="flex-grow px-10 py-6 bg-global-bg overflow-y-auto">
       <router-outlet></router-outlet>
     </div>
   </div>
