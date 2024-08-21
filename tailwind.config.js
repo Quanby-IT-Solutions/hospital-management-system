@@ -7,8 +7,8 @@ module.exports = {
       colors: {
         'global-bg': '#F8F9FE',
         'container-bg': '#ffffff',
-        'primary-bg': '#00cc99',
         'primary-bg-opacity': 'rgba(0, 204, 153, 0.25)', 
+        'primary-bg': '#00cc99',
         'secondary-bg': '#ff9900',
         'accent-bg': '#597931',
         'warning-bg': 'rgb(239 68 68)',
@@ -87,8 +87,10 @@ ng g c shared/dashboard
 ng g c shared/dashboard/sidebar
 ng g c shared/dashboard/header
 
-ng g c components/dashboard/calendar
-ng g c components/dashboard/reminders
+ng g c shared/components/dashboard/calendar
+ng g c shared/components/dashboard/reminders
+ng g c shared/components/dashboard/welcome-header
+ng g c shared/components/dashboard/body-content
 
 */}
 

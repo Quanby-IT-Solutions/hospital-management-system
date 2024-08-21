@@ -1,0 +1,15 @@
+<div class="bg-white shadow-md p-4 rounded-lg">
+    <h2 class="text-lg font-semibold text-gray-800 mb-4">Sample Reminders</h2>
+    <ul class="space-y-2">
+      <li *ngFor="let reminder of sampleReminders" class="flex justify-between p-2 bg-gray-100 rounded-lg">
+        <span>{{ reminder.name }} - {{ reminder.status }}</span>
+        <span [ngClass]="{
+          'text-green-500': reminder.status === 'Done',
+          'text-red-500': reminder.status === 'Pending'
+        }">
+          {{ reminder.status }}
+        </span>
+      </li>
+    </ul>
+  </div>
+  
