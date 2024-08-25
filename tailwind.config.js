@@ -5,23 +5,46 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'global-bg': '#F8F9FE',
-        'container-bg': '#ffffff',
-        'primary-bg-opacity': 'rgba(0, 204, 153, 0.25)', 
-        'primary-bg': '#00cc99',
-        'secondary-bg': '#ff9900',
-        'accent-bg': '#597931',
-        'warning-bg': 'rgb(239 68 68)',
+        'global-color': '#F8F9FE',                           // Light grayish-blue
+        'container-color': '#ffffff',                        // White
+        'primary-color-opacity': 'rgba(0, 204, 153, 0.25)', // Transparent teal
+        'primary-color': '#00cc99',                         // Teal
+        'secondary-color': '#ff9900',                       // Orange
+        'accent-color': '#597931',                          // Olive green
+        'warning-color': 'rgb(239 68 68)',                  // Red
+
+        // light
+
+        'primary-color-light': '#33d6b2',                   // teal hover 
+        'secondary-color-light': '#ffac33',                   // orange hover 
+        'warning-color-light': '#ff6b6b',                   // red hover 
+
+
+        // dark 
+
+        'warning-color-dark': '#cc0000',                     //  red hover 
+        'primary-color-dark': '#009977',                    //  teal hover 
+        'secondary-color-dark': '#e59400',                  //  orange hover 
+
+
       },
       fontSize: {
-        'title': '24px',
-        'body': '18px',
-        'header': '36px',
+        'title': '24px', 
+        'body': '18px', 
+        'header': '36px', 
       },
     },
   },
   plugins: [],
 };
+
+
+
+
+// CMOS - to do
+
+// setting page na pwede palitan ang mga values kaan na gabos.
+
 
 
 
