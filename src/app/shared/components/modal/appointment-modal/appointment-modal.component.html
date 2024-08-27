@@ -1,1 +1,174 @@
-<p>appointment-modal works!</p>
+<!-- appointment-modal.component.html --> 
+
+
+<div *ngIf="isOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-lg p-6 mb-2">
+      <!-- Centered Title -->
+      <div class="flex justify-center items-center mb-4 relative">
+        <h2 class="text-title font-bold">Book Appointment</h2>
+        <div class="absolute right-0">
+          <app-close-modal (onClose)="onClose()"></app-close-modal>
+        </div>
+      </div>
+  
+      <!-- Step 1: Select Appointment Type -->
+      <div *ngIf="currentStep === 1">
+        <p class="text-body mb-4 text-center">How may we help you?</p>
+        <div class="grid grid-cols-2 gap-4">
+          <button 
+            class="border border-primary-color rounded-lg p-8 text-center hover:bg-teal-50 cursor-pointer" 
+            [class.bg-primary-color-opacity]="selectedOption === 'consultation'"
+            [class.text-white]="selectedOption === 'consultation'"
+            (click)="selectOption('consultation')">
+            <i class="fas fa-hospital text-8xl text-primary-color"></i>
+            <p class="mt-4 text-body text-primary-color">Consultation</p>
+          </button>
+          <button 
+            class="border border-primary-color rounded-lg p-8 text-center hover:bg-teal-50 cursor-pointer" 
+            [class.bg-primary-color-opacity]="selectedOption === 'onlineConsultation'"
+            [class.text-white]="selectedOption === 'onlineConsultation'"
+            (click)="selectOption('onlineConsultation')">
+            <i class="fas fa-house text-8xl text-primary-color"></i>
+            <p class="mt-4 text-body text-primary-color">Online Consultation</p>
+          </button>
+        </div>
+        <div class="flex justify-between items-center mt-6">
+          <app-button
+            *ngIf="currentStep > 1"
+            padding="sm"
+            text="Back"
+            btnColor="teal"
+            width="sm"
+            fontSize="md"
+            (onClick)="onAction('back')">
+          </app-button>
+          <div class="ml-auto">
+            <app-button
+              padding="sm"
+              text="Next"
+              btnColor="teal"
+              width="sm"
+              fontSize="md"
+              [disabled]="!selectedOption"
+              (onClick)="onAction('next')">
+            </app-button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Step 2: Select Date -->
+      <div *ngIf="currentStep === 2 && !showCalendar">
+        <div class="mb-4">
+            <label for="doctor-select" class="block text-body font-semibold mb-2">Select Doctor</label>
+            <select id="doctor-select" class="w-full border border-primary-color rounded-lg p-2 text-body" [(ngModel)]="selectedDoctorId">
+              <!-- Placeholder option -->
+              <option value=""  class="text-gray-500" disabled>List of Doctors</option>
+              <!-- Actual doctor options -->
+              <option *ngFor="let doctor of doctors" [value]="doctor.id">{{ doctor.name }}</option>
+            </select>
+            
+                        
+            
+          
+        </div>
+  
+        <div class="mb-4">
+          <label for="date-select" class="block text-body font-semibold mb-2">Select Date</label>
+          <div id="date-select" class="relative">
+            <input
+              type="text"
+              class="w-full border border-primary-color rounded-lg p-2 text-body cursor-pointer"
+              [value]="selectedDate ? (selectedDate | date: 'yyyy-MM-dd') : 'Available Date'"
+              readonly
+              (click)="toggleCalendar()">
+          </div>
+        </div>
+  
+        <div class="mb-4">
+          <label for="time-select" class="block text-body font-semibold mb-2">Select Time</label>
+          <select id="time-select" class="w-full border border-primary-color rounded-lg p-2 text-body" [(ngModel)]="selectedTimeSlot">
+            <option value="" class="text-gray-500" disabled>Available Time</option>
+
+            <option value="7:30 am">7:30 am</option>
+            <option value="9:00 am">9:00 am</option>
+            <!-- Add more time slots as needed -->
+          </select>
+        </div>
+  
+        <div class="flex justify-between items-center mt-6">
+          <app-button
+            *ngIf="currentStep > 1"
+            padding="sm"
+            text="Back"
+            btnColor="teal"
+            width="sm"
+            fontSize="md"
+            (onClick)="onAction('back')">
+          </app-button>
+          <div class="ml-auto">
+            <app-button
+              padding="sm"
+              text="Book Now"
+              btnColor="orange"
+              width="sm"
+              fontSize="md"
+              [disabled]="!selectedDate || !selectedTimeSlot"
+              (onClick)="onAction('book')">
+            </app-button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Calendar for Date Selection -->
+      <!-- Calendar for Date Selection -->
+<div *ngIf="showCalendar">
+    <div class="flex justify-between items-center mb-4 px-4">
+      <button (click)="previousMonth()" class="text-teal-500 font-bold">
+        &lt; 
+      </button>
+      <p class="text-xl font-bold">{{ currentMonthName }} {{ currentYear }}</p>
+      <button (click)="nextMonth()" class="text-teal-500 font-bold">
+        &gt;
+      </button>
+    </div>
+  
+    <div class="grid grid-cols-7 gap-1 text-center mb-2">
+      <div *ngFor="let day of dayNames" class="font-bold text-gray-700">{{ day }}</div>
+      <button
+        *ngFor="let day of daysInMonth"
+        class="py-2 rounded-full"
+        [ngClass]="{
+          'hover:bg-primary-color-opacity cursor-pointer': !isPastDate(day),
+          'text-gray-500 bg-gray-100 cursor-not-allowed': isPastDate(day),
+          'bg-primary-color text-white': isSelectedDate(day)
+        }"
+        [disabled]="isPastDate(day)"
+        (click)="selectDate(day)">
+        {{ day > 0 ? day : '' }}
+      </button>
+    </div>
+  
+    <div class="flex justify-between items-center mt-6">
+      <app-button
+        padding="sm"
+        text="Back"
+        btnColor="teal"
+        width="sm"
+        fontSize="md"
+        (onClick)="closeCalendar()">
+      </app-button>
+      <app-button
+        padding="sm"
+        text="Confirm"
+        btnColor="orange"
+        width="sm"
+        fontSize="md"
+        [disabled]="!selectedDate"
+        (onClick)="confirmDate()">
+      </app-button>
+    </div>
+  </div>
+  
+    </div>
+  </div>
+  

@@ -8,11 +8,13 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class ButtonComponent {
   @Input() text: string = 'Click me'; 
-  @Input() btnColor: 'orange' | 'red' | 'teal' = 'teal'; 
+  @Input() btnColor: 'orange' | 'red' | 'teal' | 'white' | 'transparent'= 'teal'; 
   @Input() fontSize: 'sm' | 'md' | 'lg' = 'md'; 
   @Input() width: 'sm' | 'md' | 'lg' | 'xl' | '2xl' = 'md'; 
   @Input() class: string = ''; 
   @Input() padding: 'sm' | 'md' | 'lg' = 'md';
+  @Input() disabled: boolean = false;  
+  @Input() textColor: 'white' | 'black' | 'orange' | 'red' | 'teal' = 'white';
   @Output() onClick = new EventEmitter<void>(); 
 
   getSizeClasses() {
@@ -29,6 +31,10 @@ export class ButtonComponent {
   }
 
   getColorClasses() {
+    if (this.disabled) {
+      return 'bg-gray-300';  // Optional: You can set a different color when disabled
+    }
+
     switch (this.btnColor) {
       case 'orange':
         return 'bg-secondary-color hover:bg-secondary-color-light';
@@ -36,6 +42,10 @@ export class ButtonComponent {
         return 'bg-warning-color hover:bg-warning-color-light';
       case 'teal':
         return 'bg-primary-color hover:bg-primary-color-light';  
+      case 'white':
+        return 'bg-white';
+      case 'transparent':
+        return 'bg-transparent';
       default:
         return '';
     }
@@ -71,7 +81,27 @@ export class ButtonComponent {
     }
   }
 
+  getTextColorClasses(){
+    switch(this.textColor) {
+      case 'black':
+        return 'text-black';
+      case 'white':
+        return 'text-white';
+      case 'orange':
+        return 'text-secondary-color';
+      case 'red':
+        return 'text-warning-color ';
+      case 'teal':
+        return 'text-primary-color';  
+      default: 
+        return '';
+    }
+
+  }
+
   handleClick() {
-    this.onClick.emit();
+    if (!this.disabled) {
+      this.onClick.emit();  // Emit the click event only if not disabled
+    }
   }
 }

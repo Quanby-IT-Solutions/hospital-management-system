@@ -2,48 +2,58 @@
     <div class="mb-4 flex items-center justify-between">
       <h2 class="text-header font-bold">My Appointments</h2>
       <app-button 
+        (click)="openModal()"
         padding="lg"
         text="+ Make New Appointment" 
         btnColor="teal" 
         width="2xl" 
-        fontSize="md"
-        (onClick)="handleNewAppointment()">
+        fontSize="md">
       </app-button>
     </div>
     <div class="bg-container-bg shadow rounded-lg p-4">
       <h3 class="text-title font-semibold">Upcoming</h3>
       <div class="mt-4 space-y-4">
         <div *ngFor="let appointment of getUpcomingAppointments()" class="flex items-center justify-between bg-white border rounded-lg p-4 shadow-sm">
-          <div class="flex items-center space-x-4">
-            <img class="w-12 h-12 rounded-full" [src]="appointment.imageUrl" [alt]="appointment.name">
-            <div>
-              <p class="text-body font-medium">{{ appointment.name }}</p>
-              <p class="text-sm text-gray-500">{{ appointment.date }} - {{ appointment.time }}</p>
+            <div class="flex items-center space-x-4">
+              <img class="w-12 h-12 rounded-full" [src]="appointment.imageUrl" [alt]="appointment.doctorName">
+              <div>
+                <p class="text-title font-medium">{{ appointment.doctorName }}</p> 
+
+                <p class="text-body text-gray-600">
+                    <i class="fa-solid fa-calendar-day "></i><span class="ml-2"> {{ appointment.date }} </span>
+                  </p>
+
+                  <p class="text-body text-gray-600">
+                    <i class="fa-solid fa-clock"></i> <span class="ml-2"> {{ appointment.time }} </span> 
+                  </p>
+                  
+              </div>
+            </div>
+            <div class="flex space-x-2">
+              <app-button 
+                padding="sm"
+                text="Cancel" 
+                btnColor="red" 
+                width="sm" 
+                fontSize="md"
+                (onClick)="handleCancelAppointment(appointment)">
+              </app-button>
+              <app-button 
+                padding="sm"
+                text="Edit" 
+                btnColor="orange"  
+                width="sm" 
+                fontSize="md"
+                (onClick)="handleEditAppointment(appointment)">
+              </app-button>
             </div>
           </div>
-          <div class="text-sm text-gray-500">
-            <p>{{ appointment.location }}</p>
-          </div>
-          <div class="flex space-x-2">
-            <app-button 
-            padding="sm"
-              text="Cancel" 
-              btnColor="red" 
-              width="sm" 
-              fontSize="md"
-              (onClick)="handleCancelAppointment(appointment)">
-            </app-button>
-            <app-button 
-            padding="sm"
-              text="Edit" 
-              btnColor="orange" 
-              width="sm" 
-              fontSize="md"
-              (onClick)="handleEditAppointment(appointment)">
-            </app-button>
-          </div>
-        </div>
       </div>
     </div>
   </div>
   
+  <app-appointment-modal
+    [isOpen]="isModalOpen"
+    (closeModal)="closeModal()"
+    (action)="handleAction($event)">
+  </app-appointment-modal>

@@ -1,14 +1,16 @@
 <button 
   class="
-     px-2 
+    px-2 
     rounded-2xl 
-    text-white 
+   {{getTextColorClasses() }} 
     {{ getPaddingClasses() }}
     {{ getWidthClasses() }} 
     {{ getSizeClasses() }} 
     {{ getColorClasses() }} 
     {{ class }} 
-    transform transition-transform duration-300 ease-in-out hover:scale-105"
-  (click)="handleClick()">
+    transform transition-transform duration-300 ease-in-out hover:scale-105
+    {{ disabled ? 'opacity-50 cursor-not-allowed hover:scale-100' : '' }}"
+  (click)="handleClick()"
+  [disabled]="disabled">
   {{ text }}
 </button>

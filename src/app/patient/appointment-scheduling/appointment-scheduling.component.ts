@@ -1,64 +1,88 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ButtonComponent } from '../../shared/components/buttons/button/button.component';
+import { AppointmentModalComponent } from '../../shared/components/modal/appointment-modal/appointment-modal.component';
 
 interface Appointment {
-  name: string;
+  doctorName: string;
   date: string;
   time: string;
-  location: string;
-  status: 'upcoming' | 'past';
+  status: 'upcoming' | 'done';
   imageUrl: string;
 }
 
 @Component({
   selector: 'app-appointment-scheduling',
   standalone: true,
-  imports: [CommonModule, ButtonComponent],
+  imports: [CommonModule, ButtonComponent, AppointmentModalComponent],
   templateUrl: './appointment-scheduling.component.html',
   styleUrls: ['./appointment-scheduling.component.css']
 })
-export class AppointmentSchedulingComponent {
-  appointments: Appointment[] = [
-    {
-      name: 'Dr. Baby Boy Nebres',
-      date: 'August 13, 2024',
-      time: '10:30 am',
-      location: 'Daraga Albay',
-      status: 'upcoming',
-      imageUrl: 'https://randomuser.me/api/portraits/men/44.jpg',
-    },
-    {
-      name: 'Dr. Jose Rizal',
-      date: 'August 21, 2024',
-      time: '10:30 am',
-      location: 'Washington Albay',
-      status: 'upcoming',
-      imageUrl: 'https://randomuser.me/api/portraits/men/42.jpg',
-    },
+export class AppointmentSchedulingComponent implements OnInit {
+  appointments: Appointment[] = [];
 
+  doctors = [
+    { id: 1, name: 'Dr. Jose Rizal' },
+    { id: 2, name: 'Dr. Juan Luna' },
+    { id: 3, name: 'Dr. Maria Clara' },
   ];
+
+  isModalOpen: boolean = false;
+
+  ngOnInit() {
+    this.updateAppointmentStatuses();
+  }
 
   getUpcomingAppointments() {
     return this.appointments.filter(appointment => appointment.status === 'upcoming');
   }
 
-  getPastAppointments() {
-    return this.appointments.filter(appointment => appointment.status === 'past');
+  updateAppointmentStatuses() {
+    const today = new Date();
+    this.appointments.forEach(appointment => {
+      const appointmentDate = new Date(appointment.date);
+      if (appointmentDate < today) {
+        appointment.status = 'done';
+      }
+    });
   }
 
   handleNewAppointment() {
     console.log('New appointment creation triggered!');
-    // Add your logic here
   }
 
   handleCancelAppointment(appointment: any) {
     console.log('Cancel appointment:', appointment);
-    // Add your logic here
   }
 
   handleEditAppointment(appointment: any) {
     console.log('Edit appointment:', appointment);
-    // Add your logic here
+  }
+
+  openModal() {
+    this.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+  }
+
+  handleAction(action: { doctorId: number; date: string; time: string }) {
+    console.log('Received Action:', action);
+
+    const doctor = this.doctors.find(doc => doc.id === action.doctorId);
+    const doctorName = doctor ? doctor.name : 'Unknown Doctor';
+
+    if (action) {
+      this.appointments.push({
+        doctorName: doctorName,
+        date: action.date,
+        time: action.time,
+        status: 'upcoming',
+        imageUrl: 'https://randomuser.me/api/portraits/men/45.jpg', // Update image URL as needed
+      });
+      this.updateAppointmentStatuses();
+      this.closeModal();
+    }
   }
 }
