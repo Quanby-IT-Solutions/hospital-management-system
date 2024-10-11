@@ -1,1 +1,116 @@
-<p>health-record works!</p>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+    <!-- Personal Details Card -->
+    <div class="row-span-1 col-span-1 bg-white rounded-lg shadow-md p-6">
+      <h3 class="text-lg font-bold mb-4">Personal Details</h3>
+      <div class="flex items-center space-x-4">
+        <img [src]="patient.profilePicture" alt="Profile Picture" class="w-16 h-16 rounded-full">
+        <div>
+          <h2 class="text-lg font-bold">{{ patient.fullName }}</h2>
+          <p class="text-sm">Date of Birth: {{ patient.dateOfBirth }}</p>
+          <p class="text-sm">Patient ID: {{ patient.patientId }}</p>
+          <p class="text-sm">Blood Type: {{ patient.bloodType }}</p>
+          <p class="text-sm">Address: {{ patient.address }}</p>
+          <p class="text-sm">Email: {{ patient.email }}</p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Medical History Card -->
+    <div class="row-span-2 col-span-1 bg-white rounded-lg shadow-md p-6">
+      <h3 class="text-lg font-bold mb-4">Medical History</h3>
+      <ul class="space-y-1">
+        <li *ngFor="let item of medicalHistory" class="text-sm">
+          <span class="font-bold">{{ item.condition }}:</span> {{ item.date }}
+        </li>
+      </ul>
+    </div>
+  
+    <!-- Medication Card -->
+    <div class="row-span-2 col-span-1 bg-white rounded-lg shadow-md p-6">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold">Medication</h3>
+        <a href="#" class="text-blue-600 text-sm">View All</a>
+      </div>
+      <ul class="space-y-1">
+        <li *ngFor="let med of patient.medications" class="text-sm">
+          <span class="font-bold">{{ med.name }}:</span> {{ med.dose }} ({{ med.frequency }})
+        </li>
+      </ul>
+    </div>
+  
+    <!-- Last Vitals Card -->
+    <div class="col-span-1 bg-white rounded-lg shadow-md p-6">
+      <h3 class="text-lg font-bold mb-4">Last Vitals ({{ lastVitals.date }})</h3>
+      <ul class="space-y-1">
+        <li class="text-sm flex items-center">
+          <span class="font-bold mr-2">Temperature:</span> {{ lastVitals.temperature }}°C
+        </li>
+        <li class="text-sm flex items-center">
+          <span class="font-bold mr-2">Heart Rate:</span> {{ lastVitals.heartRate }} bpm
+        </li>
+        <li class="text-sm flex items-center">
+          <span class="font-bold mr-2">Weight:</span> {{ lastVitals.weight }} kg
+        </li>
+        <li class="text-sm flex items-center">
+          <span class="font-bold mr-2">Oxygen Rate:</span> {{ lastVitals.oxygenRate }} %
+        </li>
+        <li class="text-sm flex items-center">
+          <span class="font-bold mr-2">Blood Pressure:</span> {{ lastVitals.bloodPressure }} mmHg
+        </li>
+        <li class="text-sm flex items-center">
+          <span class="font-bold mr-2">Respiratory Rate:</span> {{ lastVitals.respiratoryRate }} min
+        </li>
+      </ul>
+    </div>
+  
+    <!-- Lab Results Card -->
+    <div class="col-span-1 bg-white rounded-lg shadow-md p-6">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold">Lab Results</h3>
+        <a href="#" class="text-blue-600 text-sm">View All</a>
+      </div>
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="text-left">
+            <th>Test</th>
+            <th>Result</th>
+            <th>Range</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let result of labResults">
+            <td>{{ result.test }}</td>
+            <td>{{ result.result }}</td>
+            <td>{{ result.range }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- All Visits Section -->
+    <div class="col-span-2 bg-white rounded-lg shadow-md p-6">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-lg font-bold">All Visits</h3>
+        <a href="#" class="text-blue-600 text-sm">View All</a>
+      </div>
+      <table class="w-full text-sm">
+        <thead>
+          <tr class="text-left">
+            <th>Date</th>
+            <th>Visit Status</th>
+            <th>Assigned Doctor</th>
+            <th>Vitals</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let visit of allVisits" class="border-b">
+            <td>{{ visit.date }}</td>
+            <td>{{ visit.status }}</td>
+            <td>{{ visit.doctor }}</td>
+            <td>{{ visit.vitals }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
