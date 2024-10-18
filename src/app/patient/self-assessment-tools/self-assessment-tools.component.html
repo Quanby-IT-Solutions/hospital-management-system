@@ -1,1 +1,32 @@
-<p>self-assessment-tools works!</p>
+<div class="p-6 bg-gray-100 min-h-screen">
+    <!-- Header and Search Bar -->
+    <div class="mb-6">
+      <h1 class="text-2xl font-bold">Self Assessment Tools</h1>
+      <p class="text-gray-600 mb-4">How are you feeling today?</p>
+      <div class="flex items-center space-x-2">
+        <input 
+          [(ngModel)]="searchQuery"
+          type="text"
+          placeholder="Search"
+          class="flex-1 p-2 border rounded-lg focus:outline-none focus:ring focus:ring-blue-200"
+        >
+        <button class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+  
+    <!-- Assessment Tools Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div *ngFor="let tool of filterTools()" class="p-4 rounded-lg shadow-md text-white" [ngClass]="tool.backgroundColor">
+        <h2 class="text-lg font-semibold">{{ tool.title }}</h2>
+        <p class="mt-2"><span class="font-semibold">Measurement Time:</span> {{ tool.measurementTime }}</p>
+        <p><span class="font-semibold">Administered by:</span> {{ tool.administeredBy }}</p>
+        <p><span class="font-semibold">Areas Measured:</span> {{ tool.areasMeasured }}</p>
+        <button class="mt-4 bg-white text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-100">
+          {{ tool.buttonText }}
+        </button>
+      </div>
+    </div>
+  </div>
+  
