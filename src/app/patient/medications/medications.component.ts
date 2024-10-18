@@ -1,63 +1,66 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+interface Medication {
+  name: string;
+  dosage: string;
+  time: string;
+  status: 'taken' | 'skipped' | 'pending';
+  instructions: string[];
+}
 
 @Component({
   selector: 'app-medications',
   standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './medications.component.html',
-  styleUrls: ['./medications.component.css'],
-  imports: [CommonModule],
+  styleUrls: ['./medications.component.css']
 })
 export class MedicationsComponent {
-  // Dummy medication data
-  medications = [
+  searchQuery: string = '';
+  medications: Medication[] = [
     {
       name: 'Medicine',
       dosage: '100 mg',
       time: '8:00 am',
-      instructions: 'Take One before eating',
-      status: '12/30 pill took',
-      reminders: 'Reminders',
-      actions: { taken: false, skipped: false }
+      status: 'taken',
+      instructions: ['Take 2 pills', 'Take One before eating'],
     },
     {
       name: 'Vitamins',
       dosage: '100 mg',
       time: '8:00 am',
-      instructions: 'Take One before eating',
-      status: '12/30 pill took',
-      reminders: 'Reminders',
-      actions: { taken: true, skipped: false }
+      status: 'pending',
+      instructions: ['Take 2 pills', 'Take One before eating'],
     },
     {
       name: 'Medicine',
       dosage: '100 mg',
       time: '8:00 am',
-      instructions: 'Take One before eating',
-      status: '12/30 pill took',
-      reminders: 'Reminders',
-      actions: { taken: false, skipped: true }
+      status: 'skipped',
+      instructions: ['Take 2 pills', 'Take One before eating'],
     },
     {
       name: 'Medicine',
       dosage: '100 mg',
       time: '8:00 am',
-      instructions: 'Take One before eating',
-      status: '12/30 pill took',
-      reminders: 'Reminders',
-      actions: { taken: false, skipped: false }
-    }
+      status: 'taken',
+      instructions: ['Take 2 pills', 'Take One before eating'],
+    },
   ];
 
-  // Method to handle marking medication as taken
-  markAsTaken(index: number) {
-    this.medications[index].actions.taken = true;
-    this.medications[index].actions.skipped = false;
+  filterMedications() {
+    return this.medications.filter(med =>
+      med.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+    );
   }
 
-  // Method to handle skipping medication
-  skipMedication(index: number) {
-    this.medications[index].actions.taken = false;
-    this.medications[index].actions.skipped = true;
+  markAsTaken(medication: Medication) {
+    medication.status = 'taken';
+  }
+
+  markAsSkipped(medication: Medication) {
+    medication.status = 'skipped';
   }
 }
